@@ -8,12 +8,14 @@
       <button
         v-if="taskNumber !== 1"
         class="button"
+        @click="clickPrev"
       >
         Назад
       </button>
       <button
         v-if="taskNumber !== 3"
         class="button"
+        @click="clickNext"
       >
         Далее
       </button>
@@ -31,9 +33,13 @@ import Task1 from "@/tasks/Task1.vue";
 
   const taskNumber = ref(1)
 
+  const clickNext = () => {
+    taskNumber.value++
+  }
 
-
-
+  const clickPrev = () => {
+    taskNumber.value--
+  }
 </script>
 
 <style scoped>
@@ -52,5 +58,8 @@ import Task1 from "@/tasks/Task1.vue";
     font-weight: 400;
   }
 
-
+  .controls {
+    display: flex;
+    gap: 20px;
+  }
 </style>

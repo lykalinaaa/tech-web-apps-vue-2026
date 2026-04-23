@@ -3,7 +3,7 @@
     class="task"
   >
     <label>1.1</label>
-    <div>
+    <div class="input-box">
       <input
         type="text"
         placeholder="Введите число"
@@ -32,13 +32,67 @@
       <p>Первая цифра: {{ task1Result.firstDigit }}</p>
     </div>
   </div>
+  <div
+    class="task"
+  >
+    <label>1.2</label>
+    <div class="input-box">
+      <input
+        type="text"
+        placeholder="Введите строку"
+        class="input"
+        :class="task2Result.isShown ? 'disabled' : ''"
+        v-model="task2Value"
+        :disabled="task2Result.isShown"
+      />
+      <button
+        class="button transparent"
+        @click="task2Perform"
+      >
+        {{ task2Result.isShown ? "Заново" : "Вывести" }}
+      </button>
+    </div>
+    <div v-if="task2Result.isShown">
+      <p>Каждый второй символ с конца: {{ task2Result.str }}</p>
+    </div>
+  </div>
+  <div
+    class="task"
+  >
+    <label>1.3</label>
+    <p>Дана матрица:</p>
+    <div class="matrix">
+      <div
+        v-for="(row, i) in matrixData"
+        :key="i"
+        class="matrix-row"
+      >
+        <span
+          v-for="(item, j) in row"
+          :key="j"
+          class="matrix-cell"
+        >
+          {{ item }}
+        </span>
+      </div>
+      <button
+        class="button transparent"
+        @click="matrixPerform"
+      >
+        Расчет
+      </button>
+    </div>
+    <p v-if="matrixResult !== null">
+      Сумма квадратов элементов = {{ matrixResult }}
+    </p>
+  </div>
 </template>
 
 <script setup>
-// Задание 1.1
-import {computed, ref} from "vue";
+  import {computed, ref} from "vue";
 
-const task1Value = ref('')
+  // Задание 1.1
+  const task1Value = ref('')
   const isValue1Error = computed(() => {
     return isNaN(Number(task1Value.value)) || (task1Value.value.length > 1 && task1Value.value.replace('-', '')[0] === '0') || task1Value.value.startsWith('+')
   })
@@ -63,6 +117,45 @@ const task1Value = ref('')
       task1Value.value = ''
     }
   }
+
+  // Задание 1.2
+  const task2Value = ref('')
+  const task2Result = ref({
+    isShown: false,
+    str: ''
+  })
+  const task2Perform = () => {
+    if (task2Result.value.isShown) {
+      task2Value.value = ''
+      task2Result.value.str = ''
+      task2Result.value.isShown = false
+    } else {
+      task2Result.value.str = task2Value.value.split('').reverse().filter((_, i) => i % 2 === 1).reverse().join(' ')
+      task2Result.value.isShown = true
+
+      console.log('Каждый второй символ с конца: ', task2Result.value.str)
+    }
+  }
+
+  // Задание 1.3
+  const matrixData = [
+    [3, 7, 9, 11],
+    [5, 8, 0, -4],
+    [78, 87, 34, 0]
+  ]
+  const matrixResult = ref(null)
+
+  const matrixPerform = () => {
+    let sum = 0
+    for (let i = 0; i < matrixData.length; i++) {
+      for (let j = 0; j < matrixData[i].length; j++) {
+        sum += matrixData[i][j] ** 2
+      }
+    }
+    matrixResult.value = sum
+    console.log('Сумма квадратов элементов = ', matrixResult.value)
+  }
+
 </script>
 
 <style>
@@ -72,8 +165,12 @@ label, p {
   font-size: 14px;
 }
 
+.input-box {
+  display: flex;
+}
+
 .input {
-  width: 300px;
+  flex: 1;
   height: 40px;
   background-color: transparent;
   border: 3px solid #F6D5EE;
@@ -116,14 +213,36 @@ label, p {
 .task {
   display: flex;
   flex-direction: column;
+  width: 500px;
 }
 
 .error {
   color: #a12727;
 }
 
-.disabled {
-  color: #b28ca9;
-  cursor: default;
+.matrix {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.matrix-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.matrix-cell {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 40px;
+  background-color: transparent;
+  border: 2px solid #F6D5EE;
+  border-radius: 12px;
+  color: #F6D5EE;
+  font-size: 14px;
 }
 </style>

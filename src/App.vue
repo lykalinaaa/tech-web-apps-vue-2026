@@ -4,6 +4,9 @@
     <Task1
       v-if="taskNumber === 1"
     />
+    <Task2
+      v-if="taskNumber === 2"
+    />
     <div class="controls">
       <button
         v-if="taskNumber !== 1"
@@ -26,6 +29,7 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 import Task1 from "@/tasks/Task1.vue";
+import Task2 from "@/tasks/Task2.vue";
 
   const taskTitle = computed(() => {
     return 'Задание ' + taskNumber.value

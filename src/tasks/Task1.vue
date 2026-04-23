@@ -52,6 +52,9 @@ const task1Value = ref('')
       task1Result.value.firstDigit = task1Value.value.replace('-', '')[0] || ''
       task1Result.value.digitsNum = Math.abs(parseFloat(task1Value.value)).toString().replace('.', '').length
       task1Result.value.isShown = true
+
+      console.log('Количество разрядов: ', task1Result.value.digitsNum)
+      console.log('Первая цифра: ', task1Result.value.firstDigit)
     } else {
       task1Result.value.firstDigit = ''
       task1Result.value.digitsNum = 0

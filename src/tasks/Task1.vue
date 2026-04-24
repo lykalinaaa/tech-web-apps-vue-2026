@@ -130,10 +130,12 @@
       task2Result.value.str = ''
       task2Result.value.isShown = false
     } else {
-      task2Result.value.str = task2Value.value.split('').reverse().filter((_, i) => i % 2 === 1).join(' ')
-      task2Result.value.isShown = true
+      if(task2Value.value) {
+        task2Result.value.str = task2Value.value.split('').reverse().filter((_, i) => i % 2 === 1).join(' ')
+        task2Result.value.isShown = true
 
-      console.log('Каждый второй символ с конца: ', task2Result.value.str)
+        console.log('Каждый второй символ с конца: ', task2Result.value.str)
+      }
     }
   }
 
@@ -158,7 +160,7 @@
 
 </script>
 
-<style>
+<style scoped>
 .label, .result {
   color: #F6D5EE;
   margin-bottom: 10px;
@@ -192,6 +194,7 @@
   border-radius: 12px;
   font-size: 14px;
   border: none;
+  margin: auto;
 }
 
 .transparent {

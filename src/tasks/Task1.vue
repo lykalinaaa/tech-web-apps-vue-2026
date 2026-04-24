@@ -2,7 +2,7 @@
   <div
     class="task"
   >
-    <label>1.1</label>
+    <label class="label">1.1</label>
     <div class="input-box">
       <input
         type="text"
@@ -23,19 +23,19 @@
     </div>
     <label
       v-if="isValue1Error"
-      class="error"
+      class="error label"
     >
       Некорректное значение!
     </label>
     <div v-if="task1Result.isShown">
-      <p>Количество разрядов: {{ task1Result.digitsNum }}</p>
-      <p>Первая цифра: {{ task1Result.firstDigit }}</p>
+      <p class="result">Количество разрядов: {{ task1Result.digitsNum }}</p>
+      <p class="result">Первая цифра: {{ task1Result.firstDigit }}</p>
     </div>
   </div>
   <div
     class="task"
   >
-    <label>1.2</label>
+    <label class="label">1.2</label>
     <div class="input-box">
       <input
         type="text"
@@ -53,14 +53,14 @@
       </button>
     </div>
     <div v-if="task2Result.isShown">
-      <p>Каждый второй символ с конца: {{ task2Result.str }}</p>
+      <p class="result">Каждый второй символ с конца: {{ task2Result.str }}</p>
     </div>
   </div>
   <div
     class="task"
   >
-    <label>1.3</label>
-    <p>Дана матрица:</p>
+    <label class="label">1.3</label>
+    <p class="result">Дана матрица:</p>
     <div class="matrix">
       <div
         v-for="(row, i) in matrixData"
@@ -82,7 +82,7 @@
         Расчет
       </button>
     </div>
-    <p v-if="matrixResult !== null">
+    <p class="result" v-if="matrixResult !== null">
       Сумма квадратов элементов = {{ matrixResult }}
     </p>
   </div>
@@ -130,7 +130,7 @@
       task2Result.value.str = ''
       task2Result.value.isShown = false
     } else {
-      task2Result.value.str = task2Value.value.split('').reverse().filter((_, i) => i % 2 === 1).reverse().join(' ')
+      task2Result.value.str = task2Value.value.split('').reverse().filter((_, i) => i % 2 === 1).join(' ')
       task2Result.value.isShown = true
 
       console.log('Каждый второй символ с конца: ', task2Result.value.str)
@@ -159,7 +159,7 @@
 </script>
 
 <style>
-label, p {
+.label, .result {
   color: #F6D5EE;
   margin-bottom: 10px;
   font-size: 14px;
